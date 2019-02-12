@@ -1,0 +1,1 @@
+https://newsapi.org/v2/everything?q=bitcoin&from=2019-01-09&sortBy=publishedAt&apiKey=b949f35bf9c84762bd84fbb2fbb9ed95
