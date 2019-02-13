@@ -3,18 +3,18 @@ import subprocess
 import re
 import itertools
 import nltk
-from rake_nltk import Rake
-from nltk.stem import PorterStemmer
 import bs4
+from rake_nltk import Rake
 sys.path.append("modules")
 import ques_content
 import coref
 sys.path.append("keyword-extraction")
-import keyword_extraction_w_parser
 #import demo
 import newask
 import answer
 import news_hunt
+sys.path.append("question-generation")
+import question
 r = Rake()
 query = []
 with open('data.txt', 'r') as myfile:
@@ -29,7 +29,7 @@ except:
 f = open("asciidata.txt","w")
 f.write(asciidata)
 f.close()
-article_content = coref.process("asciidata.txt")    
+article_content = coref.process("asciidata.txt")
 selected_content = ques_content.process(article_content)
 for sentence in selected_content:
     r.extract_keywords_from_text(sentence)
@@ -39,10 +39,14 @@ query1 = " ".join(query)
 print(query1)
 #demo.process(query1)
 news_hunt.process(query1)
-newask.process("data.txt")
-
+#newask.process("data.txt")
+v = question.makequestion(data)
+print(v)
+qu = open("ques.txt","w")
+print(qu)
+for x in v:
+    y = x['Q']
+    qu.write(y)
+    print(x['Q'])
+qu.close()
 answer.ans("news_hunt.txt","ques.txt")
-
-
-
-

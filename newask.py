@@ -19,12 +19,12 @@ def process(path_to_article):
   f= open("ques.txt","w")
 
   article_content = coref.process(path_to_article)
- # print("*****************article content*********************** \n")
-  print(type(article_content))
+  print("*****************article content*********************** \n")
+  print(article_content)
   selected_content = questionContentSelector.process(article_content)
-
+  print(selected_content)
   questions = questionFromSentence.process(selected_content)
-
+  print(questions)
   questions = questions[:num_questions]
   for question in questions:
     f.write(question+"\n")

@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 
 def cleanme(html):
     soup = BeautifulSoup(html) # create a new bs4 object from the html data loaded
-    for script in soup(["script"]): 
+    for script in soup(["script"]):
         script.extract()
     text = soup.get_text()
     return text
@@ -22,21 +22,22 @@ def process(quer):
 	js = json.loads(response.read())
 	data=js['data']
 	count=data["count"]
-	
+
 	cleaner = Cleaner()
 	cleaner.javascript = True # This is True because we want to activate the javascript filter
-	cleaner.style = True 
+	cleaner.style = True
 	for i in range (count):
-		row=data["rows"][i]["content"]
-		cleanrow = cleanme(row)
-		#cleanrow = cleanhtml(row)
-		f.write(cleanrow)
+		try:
+			row=data["rows"][i]["content"]
+			cleanrow = cleanme(row)
+			#cleanrow = cleanhtml(row)
+			f.write(cleanrow)
+		except KeyError:
+			pass
+		
 	#print("***********************************************************************")
 	#print(row)
 	#print("***********************************************************************")
-	
+
 
      # This is True because we want to activate the styles & stylesheet filter
-
-
-
